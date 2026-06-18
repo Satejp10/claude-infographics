@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Accelerators, Compared — June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1f1f1f; --muted:#737373; --faint:#a3a3a3;
+    --border:#e8e8e8; --grid:#f1f1f1; --card:#ffffff;
+    --violet:#7f4bf3; --violet-soft:#f2ecff;
+    --serif:'Source Serif 4',Georgia,Cambria,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --r:16px;
+    /* metric eyebrow hues */
+    --m-compute:#7f4bf3; --m-cap:#2243e6; --m-bw:#0089f4;
+    --m-power:#ff6900; --m-eff:#34a853; --m-price:#eb3568; --m-map:#1f1f1f;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.5;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:980px; margin:0 auto; padding:34px 22px 90px;}
+
+  /* ---------- header ---------- */
+  .topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:38px;}
+  .mark{display:flex; align-items:center; gap:9px; font-weight:600; font-size:14px; letter-spacing:-0.01em;}
+  .mark .glyph{width:24px;height:24px;border-radius:6px;background:var(--ink);display:grid;place-items:center;}
+  .mark .glyph::before{content:"";width:11px;height:11px;border-radius:50%;border:2.5px solid #fff;}
+  .topbar .stamp{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;}
+
+  h1{
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(2.3rem,6.4vw,3.7rem); line-height:1.02;
+    letter-spacing:-0.015em; margin:0 0 16px; max-width:14ch;
+  }
+  .lede{font-size:clamp(1rem,2.4vw,1.18rem); color:#3a3a3a; max-width:60ch; margin:0 0 6px;}
+  .lede b{font-weight:600;color:var(--ink);}
+
+  /* method strip (AA "UPDATE" device) */
+  .method{
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    margin:30px 0 40px; padding:18px 0; display:grid;
+    grid-template-columns:auto 1fr; gap:16px; align-items:start;
+  }
+  .method .ey{font-size:11.5px;font-weight:700;letter-spacing:.13em;color:var(--violet);
+    display:flex;align-items:center;gap:8px;white-space:nowrap;padding-top:2px;}
+  .method .sq{width:13px;height:13px;border-radius:3px;background:var(--violet);}
+  .method p{margin:0;font-size:14px;color:#444;}
+  .method p span{color:var(--muted);}
+
+  /* ---------- cards ---------- */
+  .card{
+    border:1px solid var(--border); border-radius:var(--r);
+    padding:24px 24px 26px; margin-bottom:18px; background:var(--card);
+  }
+  .card-h{margin-bottom:18px;}
+  .eyebrow{display:flex;align-items:center;gap:10px;}
+  .eyebrow .sq{width:15px;height:15px;border-radius:4px;flex:none;}
+  .eyebrow h2{font-family:var(--serif);font-weight:600;font-size:1.55rem;letter-spacing:-0.01em;margin:0;line-height:1.1;}
+  .sub{font-size:13px;color:var(--muted);margin:9px 0 0;}
+  .sub .better{color:#3a3a3a;font-weight:500;}
+
+  /* ---------- horizontal bars ---------- */
+  .bars{display:flex;flex-direction:column;gap:9px;margin-top:4px;}
+  .row{display:grid;grid-template-columns:128px 1fr 70px;align-items:center;gap:13px;}
+  .nm{font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;min-width:0;}
+  .nm .dot{width:9px;height:9px;border-radius:2px;flex:none;}
+  .nm .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .track{background:var(--grid);border-radius:5px;height:19px;position:relative;overflow:hidden;}
+  .fill{height:100%;border-radius:5px;min-width:2px;transition:width .9s cubic-bezier(.2,.7,.2,1);}
+  .fill.hatch{background:repeating-linear-gradient(45deg,#e6e6e6,#e6e6e6 5px,#f6f6f6 5px,#f6f6f6 10px) !important;}
+  .val{text-align:right;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .val .u{font-weight:450;color:var(--faint);font-size:11px;}
+  .val .na{color:var(--faint);font-weight:500;}
+  .tag{font-size:10px;color:var(--faint);font-weight:500;margin-left:5px;}
+  .chart-note{font-size:11.5px;color:var(--faint);margin:16px 0 0;line-height:1.45;}
+
+  /* ---------- scatter ---------- */
+  .scatter-wrap{position:relative;width:100%;overflow:hidden;}
+  svg.scatter{width:100%;height:auto;display:block;}
+  .ax-line{stroke:var(--grid);stroke-width:1;}
+  .ax-base{stroke:#dcdcdc;stroke-width:1;}
+  .ax-tick{fill:var(--faint);font-size:11px;font-family:var(--sans);}
+  .ax-title{fill:var(--muted);font-size:12px;font-weight:600;font-family:var(--sans);}
+  .pt{fill-opacity:.62;stroke-width:1.5;transition:fill-opacity .2s;}
+  .pt:hover{fill-opacity:.85;}
+  .pt-lbl{font-size:11px;font-weight:600;font-family:var(--sans);fill:var(--ink);}
+  .legend{display:flex;flex-wrap:wrap;gap:13px 18px;margin-top:18px;font-size:12px;color:var(--muted);align-items:center;}
+  .legend .it{display:flex;align-items:center;gap:6px;}
+  .legend .it .d{width:10px;height:10px;border-radius:50%;}
+  .legend .meta{color:var(--faint);}
+
+  /* ---------- table ---------- */
+  .pills{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 18px;}
+  .pill{font-size:12.5px;font-weight:500;padding:6px 13px;border-radius:999px;border:1px solid var(--border);
+    background:#fff;color:#444;cursor:pointer;transition:.15s;}
+  .pill:hover{border-color:#c9c9c9;}
+  .pill[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .tbl-scroll{overflow-x:auto;margin:0 -4px;-webkit-overflow-scrolling:touch;}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px;}
+  th,td{text-align:right;padding:11px 12px;border-bottom:1px solid var(--grid);white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:#fff;}
+  thead th{font-weight:600;color:var(--muted);font-size:11.5px;letter-spacing:.02em;cursor:pointer;user-select:none;
+    border-bottom:1px solid #dcdcdc;}
+  thead th:hover{color:var(--ink);}
+  thead th .arr{color:var(--violet);font-size:10px;margin-left:3px;}
+  tbody tr:hover{background:#fafafa;}
+  td.chip{font-weight:600;}
+  td.chip .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:8px;vertical-align:middle;}
+  td .vd{color:var(--faint);font-weight:450;font-size:11.5px;}
+  td.dash{color:var(--faint);}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* ---------- caveats ---------- */
+  .notes ul{margin:6px 0 0;padding:0;list-style:none;}
+  .notes li{position:relative;padding:9px 0 9px 22px;font-size:13.5px;color:#3f3f3f;border-bottom:1px solid var(--grid);line-height:1.5;}
+  .notes li:last-child{border-bottom:none;}
+  .notes li::before{content:"";position:absolute;left:2px;top:15px;width:6px;height:6px;border-radius:2px;background:var(--violet);}
+  .notes li b{color:var(--ink);font-weight:600;}
+
+  footer{margin-top:34px;font-size:12px;color:var(--faint);line-height:1.6;border-top:1px solid var(--border);padding-top:18px;}
+  footer a{color:var(--muted);}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:600px){
+    .wrap{padding:26px 16px 70px;}
+    .row{grid-template-columns:92px 1fr 58px;gap:9px;}
+    .nm{font-size:12px;}
+    .val{font-size:12px;}
+    .method{grid-template-columns:1fr;gap:9px;}
+    .eyebrow h2{font-size:1.35rem;}
+    .card{padding:20px 16px 22px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .fill{transition:none;}
+  }
+  :focus-visible{outline:2px solid var(--violet);outline-offset:2px;border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="mark"><span class="glyph"></span>Silicon&nbsp;Index</div>
+    <div class="stamp">Updated June&nbsp;2026</div>
+  </div>
+
+  <h1>AI accelerators, compared</h1>
+  <p class="lede">Comparing AI chips is mostly a fight over definitions. <b>Peak FLOPS aren't delivered FLOPS</b>, "efficiency" splits three ways, and half of these you can't actually buy. Nine accelerators from NVIDIA, Google, AWS, AMD, Huawei and Groq — normalized to FP8 and stripped to the numbers that decide a deployment.</p>
+
+  <div class="method">
+    <div class="ey"><span class="sq"></span>METHOD</div>
+    <p>Compute is normalized to <b style="color:#444">dense FP8</b>, peak theoretical. Real delivered throughput (model FLOPs utilization) typically runs 30–50% of peak. <span>Where a chip can't be compared cleanly — no native FP8, undisclosed power, SRAM instead of HBM — the bar is hatched or omitted and explained, never faked.</span></p>
+  </div>
+
+  <!-- charts injected here -->
+  <div id="charts"></div>
+
+  <!-- scatter -->
+  <div class="card">
+    <div class="card-h">
+      <div class="eyebrow"><span class="sq" style="background:var(--m-map)"></span><h2>The efficiency frontier</h2></div>
+      <p class="sub">FP8 compute-per-watt against memory bandwidth · bubble = memory capacity · <span class="better">top-right is better</span></p>
+    </div>
+    <div class="scatter-wrap" id="scatter"></div>
+    <div class="legend" id="scatter-legend"></div>
+    <p class="chart-note">Only the six chips with both a published FP8 rate and a usable power figure can be placed here. Trainium3 (power undisclosed), Ascend 910C (no native FP8) and Groq (per-chip metrics don't apply) sit in the table instead.</p>
+  </div>
+
+  <!-- table -->
+  <div class="card">
+    <div class="card-h">
+      <div class="eyebrow"><span class="sq" style="background:#525252"></span><h2>Full spec table</h2></div>
+      <p class="sub">Sort any column · filter by use case. Per-chip figures; rack-scale systems pool these differently.</p>
+    </div>
+    <div class="pills" id="pills"></div>
+    <div class="tbl-scroll"><table id="tbl"><thead></thead><tbody></tbody></table></div>
+    <p class="chart-note" id="tbl-note"></p>
+  </div>
+
+  <!-- caveats -->
+  <div class="card notes">
+    <div class="card-h">
+      <div class="eyebrow"><span class="sq" style="background:var(--faint)"></span><h2>What the numbers don't show</h2></div>
+    </div>
+    <ul>
+      <li><b>Spec sheets are ceilings.</b> Every FP8 figure here is peak theoretical. Delivered utilization (MFU) is commonly 30–50%, and depends on model shape, batch size and software maturity far more than the headline number.</li>
+      <li><b>Software is the real moat.</b> CUDA vs. ROCm vs. JAX/XLA vs. AWS Neuron decides whether you can actually use the silicon. It can't be charted, and it often outweighs every spec on this page.</li>
+      <li><b>Most of these you can't buy.</b> TPU Ironwood and Trainium3 are rent-only on Google Cloud and AWS. Ascend 910C is China-only under export controls. Groq sells tokens, not chips. Only NVIDIA and AMD ship merchant silicon you can rack yourself.</li>
+      <li><b>Groq plays a different game.</b> The LPU has 230&nbsp;MB of on-chip SRAM and no HBM — its ~80&nbsp;TB/s on-chip bandwidth and tiny capacity mean it needs many chips to hold one model. Per-chip specs badly understate its system-level latency advantage, which is the entire point of the architecture.</li>
+      <li><b>Huawei's specs are estimates.</b> Ascend 910C is a dual-die FP16/BF16 part with no production FP8; capacity (~96–128&nbsp;GB) and bandwidth are not officially published. Newer Ascend 950-series parts (2026) add FP8/FP4.</li>
+      <li><b>The unit is the rack now.</b> NVIDIA's GB300 NVL72, an Ironwood 9,216-chip pod and Huawei's CloudMatrix 384 are the real products. Interconnect — NVLink, ICI, NeuronLink, Infinity Fabric, UnifiedBus — decides how these per-chip numbers actually scale.</li>
+      <li><b>This is not a buy recommendation.</b> It's a snapshot for orientation. Prices move weekly and new silicon (Rubin, Trainium4, MI400, TPU 8t/8i) lands through late 2026.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Built June 2026. Figures compiled from NVIDIA, Google Cloud, AWS, AMD and Huawei disclosures, SemiAnalysis, and public cloud pricing pages. Compute normalized to dense FP8 (peak). Cloud rates are on-demand midpoints and vary widely by provider, region and contract. Design language inspired by <a href="https://artificialanalysis.ai/">Artificial Analysis</a>.
+  </footer>
+
+</div>
+
+<script>
+const CHIPS = [
+  {id:'h100', name:'H100 SXM', vendor:'NVIDIA', color:'#aacb6a', fp8:1979, fp8n:true, mem:80,  bw:3.35, tdp:700,  price:2.50, node:'TSMC 4N',  role:'Train + Inference', access:'Buyable',        launch:'2022'},
+  {id:'h200', name:'H200',      vendor:'NVIDIA', color:'#8cc63f', fp8:1979, fp8n:true, mem:141, bw:4.8,  tdp:700,  price:3.50, node:'TSMC 4N',  role:'Train + Inference', access:'Buyable',        launch:'2024'},
+  {id:'b200', name:'B200',      vendor:'NVIDIA', color:'#6aa80f', fp8:4500, fp8n:true, mem:192, bw:8.0,  tdp:1000, price:5.00, node:'TSMC 4NP', role:'Train + Inference', access:'Buyable',        launch:'2025'},
+  {id:'b300', name:'B300 Ultra',vendor:'NVIDIA', color:'#4d8000', fp8:7000, fp8n:true, mem:288, bw:8.0,  tdp:1400, price:6.80, node:'TSMC 4NP', role:'Train + Inference', access:'Buyable',        launch:'Jan 2026'},
+  {id:'iron', name:'Ironwood TPU v7', vendor:'Google', color:'#4285f4', fp8:4614, fp8n:true, mem:192, bw:7.37, tdp:600, tdpEst:true, price:null, priceNote:'GCP rental', node:'TSMC 3nm', role:'Train + Inference', access:'Rent · GCP', launch:'Nov 2025'},
+  {id:'trn3', name:'Trainium3',  vendor:'AWS',    color:'#ff9900', fp8:2520, fp8n:true, mem:144, bw:4.9,  tdp:null, tdpEst:true, price:1.80, node:'TSMC N3P', role:'Training',          access:'Rent · AWS',     launch:'Dec 2025'},
+  {id:'910c', name:'Ascend 910C',vendor:'Huawei', color:'#cf0a2c', fp8:null, fp8n:false, fp16:780, mem:128, memEst:true, bw:3.2, bwEst:true, tdp:700, tdpEst:true, price:null, priceNote:'China-only', node:'SMIC 7nm', role:'Train + Inference', access:'China-only', launch:'2025'},
+  {id:'mi355',name:'MI355X',     vendor:'AMD',    color:'#1f1f1f', fp8:5000, fp8n:true, mem:288, bw:8.0,  tdp:1400, price:5.45, node:'TSMC 3nm', role:'Train + Inference', access:'Buyable',        launch:'Jun 2025'},
+  {id:'groq', name:'Groq LPU',   vendor:'Groq',   color:'#0d9488', fp8:null, fp8n:false, fp16:188, mem:0.23, memSram:true, bw:80, bwSram:true, tdp:375, tdpEst:true, price:null, priceNote:'per-token', node:'GF 14nm', role:'Inference', access:'Rent · GroqCloud', launch:'2024'},
+];
+// derived perf/W (only when FP8 + TDP exist)
+CHIPS.forEach(c=>{ c.perfW = (c.fp8 && c.tdp) ? +(c.fp8/c.tdp).toFixed(2) : null; });
+
+const fmt = n => n>=1000 ? n.toLocaleString('en-US') : (n%1===0? String(n): n.toFixed(n<10?2:1));
+
+/* ---------------- bar charts ---------------- */
+const CHARTS = [
+  {key:'fp8',  title:'FP8 compute',     unit:'TFLOPS', sqv:'--m-compute', better:'higher',
+   note:'Ascend 910C (FP16-only) and Groq LPU (INT8/FP16) have no production FP8 path — hatched here, full figures in the table.'},
+  {key:'mem',  title:'Memory capacity', unit:'GB',     sqv:'--m-cap',     better:'higher',
+   note:'Bigger capacity holds larger models without sharding. Groq carries 0.23&nbsp;GB of on-chip SRAM by design — a deliberate architectural trade, not a shortfall.'},
+  {key:'bw',   title:'Memory bandwidth',unit:'TB/s',   sqv:'--m-bw',      better:'higher',
+   note:'Often the real inference bottleneck, not capacity. Groq is excluded: its ~80&nbsp;TB/s is on-chip SRAM, not HBM, and would break the scale.', exclude:['groq']},
+  {key:'tdp',  title:'Power draw',      unit:'W',      sqv:'--m-power',   better:null,
+   note:'Per-chip TDP. NVIDIA and AMD publish it; Google, AWS and Huawei do not — estimates marked "est", Trainium3 hatched as undisclosed.'},
+  {key:'perfW',title:'Compute efficiency',unit:'TFLOPS/W',sqv:'--m-eff',  better:'higher',
+   note:'FP8 ÷ TDP — "performance per watt". Needs both a published FP8 rate and a power figure, so only six chips qualify; Ironwood rests on an estimated TDP.'},
+  {key:'price',title:'Cloud cost',      unit:'$/GPU-hr',sqv:'--m-price',  better:'lower',
+   note:'On-demand midpoints, ~June 2026; spot and reserved differ sharply. TPU/Trainium pricing isn\'t itemized per chip, Ascend has no Western cloud rate, Groq bills per token.'},
+];
+
+function barRow(c, ch){
+  const excluded = (ch.exclude||[]).includes(c.id);
+  if(excluded) return null;
+  let v = c[ch.key];
+  const usable = v!=null && !(ch.key==='fp8' && !c.fp8n);
+  return {c, v, usable, est:c[ch.key+'Est']===true || (ch.key==='perfW' && c.tdpEst)};
+}
+
+function renderChart(ch){
+  let items = CHIPS.map(c=>barRow(c,ch)).filter(Boolean);
+  // sort: usable first by value (dir), hatched last
+  const dir = ch.better==='lower' ? 1 : -1;
+  items.sort((a,b)=>{
+    if(a.usable!==b.usable) return a.usable?-1:1;
+    if(!a.usable) return 0;
+    return (a.v-b.v)*dir;
+  });
+  const maxV = Math.max(...items.filter(i=>i.usable).map(i=>i.v));
+  const betterTxt = ch.better==='higher' ? 'Higher is better'
+                  : ch.better==='lower'  ? 'Lower is better' : 'Context metric';
+
+  const rows = items.map(it=>{
+    const {c,v,usable,est} = it;
+    let pct, fillCls='', valHtml, tag='';
+    if(usable){
+      pct = Math.max(2, (v/maxV)*100);
+      // for "lower is better", invert visual length so shorter bar = worse price reads intuitively? keep length∝value but that's fine; value labelled.
+      valHtml = `${fmt(v)}<span class="u"> ${ch.unit}</span>`;
+      if(c.memSram) tag = '<span class="tag">SRAM</span>';
+      if(est) tag = '<span class="tag">est</span>';
+    } else {
+      pct = 13; fillCls=' hatch';
+      let why = !c.fp8n && ch.key==='fp8' ? 'no FP8'
+              : c.priceNote ? c.priceNote
+              : 'undisclosed';
+      valHtml = `<span class="na">${why}</span>`;
+    }
+    return `<div class="row">
+      <div class="nm"><span class="dot" style="background:${c.color}"></span><span class="t">${c.name}</span></div>
+      <div class="track"><div class="fill${fillCls}" style="width:${pct}%;background:${usable?c.color:''}"></div></div>
+      <div class="val">${valHtml}${tag}</div>
+    </div>`;
+  }).join('');
+
+  return `<div class="card">
+    <div class="card-h">
+      <div class="eyebrow"><span class="sq" style="background:var(${ch.sqv})"></span><h2>${ch.title}</h2></div>
+      <p class="sub"><span class="better">${betterTxt}</span> · dense FP8 basis · per chip</p>
+    </div>
+    <div class="bars">${rows}</div>
+    <p class="chart-note">${ch.note}</p>
+  </div>`;
+}
+document.getElementById('charts').innerHTML = CHARTS.map(renderChart).join('');
+
+/* ---------------- scatter ---------------- */
+(function(){
+  const pts = CHIPS.filter(c=>c.perfW!=null && c.bw!=null && !c.bwSram);
+  const W=720,H=430, ml=58, mr=24, mt=22, mb=52;
+  const xMin=2, xMax=8, yMin=3, yMax=8.5;
+  const px = v => ml + (v-xMin)/(xMax-xMin)*(W-ml-mr);
+  const py = v => H-mb - (v-yMin)/(yMax-yMin)*(H-mt-mb);
+  const rOf = m => 9 + Math.sqrt(m)/Math.sqrt(288)*26;
+
+  const xticks=[2,3,4,5,6,7,8], yticks=[3,4,5,6,7,8];
+  let g='';
+  // grid + axes
+  yticks.forEach(t=>{ g+=`<line class="ax-line" x1="${ml}" y1="${py(t)}" x2="${W-mr}" y2="${py(t)}"/>
+    <text class="ax-tick" x="${ml-10}" y="${py(t)+4}" text-anchor="end">${t}</text>`; });
+  xticks.forEach(t=>{ g+=`<text class="ax-tick" x="${px(t)}" y="${H-mb+20}" text-anchor="middle">${t}</text>`; });
+  g+=`<line class="ax-base" x1="${ml}" y1="${H-mb}" x2="${W-mr}" y2="${H-mb}"/>
+      <line class="ax-base" x1="${ml}" y1="${mt}" x2="${ml}" y2="${H-mb}"/>`;
+  g+=`<text class="ax-title" x="${(ml+W-mr)/2}" y="${H-8}" text-anchor="middle">FP8 compute efficiency (TFLOPS / watt) →</text>`;
+  g+=`<text class="ax-title" transform="translate(15 ${(mt+H-mb)/2}) rotate(-90)" text-anchor="middle">Memory bandwidth (TB/s) →</text>`;
+
+  // label offsets per chip to reduce collisions
+  const off={h100:[12,-12],h200:[12,4],b200:[-6,-16],b300:[10,-14],mi355:[-50,18],iron:[-12,-18]};
+  pts.forEach(c=>{
+    const x=px(c.perfW), y=py(c.bw), r=rOf(c.mem);
+    const dash = c.tdpEst ? 'stroke-dasharray="4 3"' : '';
+    g+=`<circle class="pt" cx="${x}" cy="${y}" r="${r}" fill="${c.color}" stroke="${c.color}" ${dash}>
+        <title>${c.name} — ${c.perfW} TFLOPS/W · ${c.bw} TB/s · ${c.mem} GB${c.tdpEst?' (est. power)':''}</title></circle>`;
+    const o=off[c.id]||[r+4,4];
+    g+=`<text class="pt-lbl" x="${x+o[0]}" y="${y+o[1]}">${c.name.replace(' TPU v7','')}</text>`;
+  });
+
+  document.getElementById('scatter').innerHTML =
+    `<svg class="scatter" viewBox="0 0 ${W} ${H}" role="img" aria-label="Scatter of compute efficiency versus memory bandwidth">${g}</svg>`;
+
+  const vendors=[...new Map(pts.map(c=>[c.vendor,c.color])).entries()];
+  document.getElementById('scatter-legend').innerHTML =
+    vendors.map(([v,col])=>`<span class="it"><span class="d" style="background:${col}"></span>${v}</span>`).join('')
+    + `<span class="it meta">○ bubble size = memory capacity</span>`
+    + `<span class="it meta">– – dashed = estimated power</span>`;
+})();
+
+/* ---------------- table ---------------- */
+(function(){
+  const COLS = [
+    {k:'name', l:'Chip',        t:'s'},
+    {k:'fp8',  l:'FP8 TFLOPS',  t:'n'},
+    {k:'mem',  l:'Mem GB',      t:'n'},
+    {k:'bw',   l:'BW TB/s',     t:'n'},
+    {k:'tdp',  l:'TDP W',       t:'n'},
+    {k:'perfW',l:'Perf/W',      t:'n'},
+    {k:'price',l:'$/GPU-hr',    t:'n'},
+    {k:'node', l:'Process',     t:'s'},
+    {k:'role', l:'Role',        t:'s'},
+    {k:'access',l:'Access',     t:'s'},
+  ];
+  const thead=document.querySelector('#tbl thead');
+  const tbody=document.querySelector('#tbl tbody');
+  let sort={k:'fp8', dir:-1}, filter='all';
+
+  const FILTERS=[
+    {id:'all',l:'All chips'},
+    {id:'buy',l:'Buyable now'},
+    {id:'train',l:'Training'},
+    {id:'inf',l:'Inference'},
+  ];
+  document.getElementById('pills').innerHTML = FILTERS.map(f=>
+    `<button class="pill" data-f="${f.id}" aria-pressed="${f.id==='all'}">${f.l}</button>`).join('');
+
+  function passes(c){
+    if(filter==='buy')   return c.access==='Buyable';
+    if(filter==='train') return /Train/.test(c.role);
+    if(filter==='inf')   return /Inference/.test(c.role);
+    return true;
+  }
+  function cell(c,col){
+    const k=col.k;
+    if(k==='name') return `<td class="chip"><span class="dot" style="background:${c.color}"></span>${c.name}<span class="vd"> · ${c.vendor}</span></td>`;
+    if(col.t==='s') return `<td>${c[k]}</td>`;
+    let v=c[k];
+    if(v==null){
+      let note = k==='fp8' ? 'FP16: '+(c.fp16||'—')
+               : k==='tdp' ? 'undisclosed'
+               : (c.priceNote||'—');
+      if(k==='mem' && c.memSram) return `<td class="num">0.23<span class="vd"> SRAM</span></td>`;
+      return `<td class="dash num" title="${note}">—</td>`;
+    }
+    let s = fmt(v);
+    if((k==='mem'&&c.memEst)||(k==='bw'&&c.bwEst)||(k==='tdp'&&c.tdpEst)) s+='<span class="vd"> est</span>';
+    return `<td class="num">${s}</td>`;
+  }
+  function render(){
+    thead.innerHTML='<tr>'+COLS.map(col=>{
+      const a = sort.k===col.k ? `<span class="arr">${sort.dir<0?'▼':'▲'}</span>`:'';
+      return `<th data-k="${col.k}" data-t="${col.t}">${col.l}${a}</th>`;
+    }).join('')+'</tr>';
+    let rows=CHIPS.filter(passes).slice().sort((a,b)=>{
+      let x=a[sort.k], y=b[sort.k];
+      if(x==null&&y==null)return 0; if(x==null)return 1; if(y==null)return -1;
+      if(sort.k==='name'){x=a.name;y=b.name;}
+      if(typeof x==='string') return x.localeCompare(y)*sort.dir;
+      return (x-y)*sort.dir;
+    });
+    tbody.innerHTML=rows.map(c=>'<tr>'+COLS.map(col=>cell(c,col)).join('')+'</tr>').join('');
+    thead.querySelectorAll('th').forEach(th=>th.onclick=()=>{
+      const k=th.dataset.k;
+      if(sort.k===k) sort.dir*=-1; else sort={k, dir: th.dataset.t==='s'?1:-1};
+      render();
+    });
+  }
+  document.querySelectorAll('#pills .pill').forEach(p=>p.onclick=()=>{
+    filter=p.dataset.f;
+    document.querySelectorAll('#pills .pill').forEach(x=>x.setAttribute('aria-pressed', x===p));
+    render();
+  });
+  render();
+  document.getElementById('tbl-note').innerHTML='Also in the market, outside this grid: Cerebras WSE-3 (wafer-scale, 44&nbsp;GB on-chip SRAM), Intel Gaudi 3, and captive hyperscaler silicon (Microsoft Maia, Meta MTIA). "est" marks figures not officially published.';
+})();
+</script>
+</body>
+</html>

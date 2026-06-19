@@ -12,6 +12,9 @@ served live via **GitHub Pages** so you can view them rendered, not just as sour
 
 | Work | Type | Date | Links |
 |------|------|------|-------|
+| **How India Got Online — Pixel Quest** — an interactive, gamified scrollytelling quest through the story of India's internet adoption. *(Completely overhauled rebuild.)* | Interactive (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/how-india-got-online-pixel-quest.html) · [Source](claude-design-works/how-india-got-online-pixel-quest.html) |
+| **India Online — How a Billion Got Connected** — the standalone data report: the charts and numbers behind India's path from a handful of users to a billion connected. | Data report (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/india-online-data-report.html) · [Source](claude-design-works/india-online-data-report.html) |
+| **Liquid Glass — Design Trials** — interactive glass-morphism design experiments (flick, drag, refract). | Design experiment (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/glass-morphism-design-trials.html) · [Source](claude-design-works/glass-morphism-design-trials.html) |
 | **AI Accelerators, Compared** — FP8 compute-per-watt vs. memory bandwidth across 2026 AI chips, normalized to comparable definitions. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/ai-accelerators-2026.html) · [Source](claude-design-works/ai-accelerators-2026.html) |
 | **Agentic Capabilities** — how far agents got by mid-2026: METR task-completion time horizons, the coding ceiling, and computer use crossing into the human band. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/agentic-capabilities-june-2026.html) · [Source](claude-design-works/agentic-capabilities-june-2026.html) |
 

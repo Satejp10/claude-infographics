@@ -8,7 +8,7 @@ A publishing space for visual work produced by Claude — infographics, data
 visualizations, and design experiments. It is **not** a typical application:
 there is no build system, no test suite, and no linter. Each work is a
 self-contained static HTML file in `claude-design-works/`, served live via
-**GitHub Pages** at https://satejp10.github.io/claude-infographics/.
+**GitHub Pages** at https://satejp10.github.io/claude-works/.
 
 ## The one command
 

@@ -6,23 +6,23 @@ This repo is a publishing space: finished pieces get pushed here and indexed bel
 single HTML/MHTML files, images, GIFs, or whole site folders for more complex builds. HTML works are
 served live via **GitHub Pages** so you can view them rendered, not just as source.
 
-🔗 **Live site:** https://satejp10.github.io/claude-infographics/
+🔗 **Live site:** https://satejp10.github.io/claude-works/
 
 ## Gallery
 
 <!-- GALLERY:START -->
 <table>
   <tr>
-    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-infographics/claude-design-works/how-india-got-online-pixel-quest.html"><img src="assets/thumbnails/how-india-got-online-pixel-quest.png" alt="How India Got Online — Pixel Quest" width="420"></a><br><sub><b>How India Got Online — Pixel Quest</b></sub></td>
-    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-infographics/claude-design-works/india-online-data-report.html"><img src="assets/thumbnails/india-online-data-report.png" alt="India Online — How a Billion Got Connected" width="420"></a><br><sub><b>India Online — How a Billion Got Connected</b></sub></td>
+    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-works/claude-design-works/how-india-got-online-pixel-quest.html"><img src="assets/thumbnails/how-india-got-online-pixel-quest.png" alt="How India Got Online — Pixel Quest" width="420"></a><br><sub><b>How India Got Online — Pixel Quest</b></sub></td>
+    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-works/claude-design-works/india-online-data-report.html"><img src="assets/thumbnails/india-online-data-report.png" alt="India Online — How a Billion Got Connected" width="420"></a><br><sub><b>India Online — How a Billion Got Connected</b></sub></td>
   </tr>
   <tr>
-    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-infographics/claude-design-works/glass-morphism-design-trials.html"><img src="assets/thumbnails/glass-morphism-design-trials.png" alt="Liquid Glass — Design Trials" width="420"></a><br><sub><b>Liquid Glass — Design Trials</b></sub></td>
-    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-infographics/claude-design-works/ai-accelerators-2026.html"><img src="assets/thumbnails/ai-accelerators-2026.png" alt="AI Engines, What Runs Your AI?" width="420"></a><br><sub><b>AI Engines, What Runs Your AI?</b></sub></td>
+    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-works/claude-design-works/glass-morphism-design-trials.html"><img src="assets/thumbnails/glass-morphism-design-trials.png" alt="Liquid Glass — Design Trials" width="420"></a><br><sub><b>Liquid Glass — Design Trials</b></sub></td>
+    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-works/claude-design-works/ai-accelerators-2026.html"><img src="assets/thumbnails/ai-accelerators-2026.png" alt="AI Engines, What Runs Your AI?" width="420"></a><br><sub><b>AI Engines, What Runs Your AI?</b></sub></td>
   </tr>
   <tr>
-    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-infographics/claude-design-works/agentic-capabilities-june-2026.html"><img src="assets/thumbnails/agentic-capabilities-june-2026.png" alt="Agentic Capabilities" width="420"></a><br><sub><b>Agentic Capabilities</b></sub></td>
-    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-infographics/claude-design-works/ai-lab-headcount.html"><img src="assets/thumbnails/ai-lab-headcount.png" alt="AI Labs, by Headcount" width="420"></a><br><sub><b>AI Labs, by Headcount</b></sub></td>
+    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-works/claude-design-works/agentic-capabilities-june-2026.html"><img src="assets/thumbnails/agentic-capabilities-june-2026.png" alt="Agentic Capabilities" width="420"></a><br><sub><b>Agentic Capabilities</b></sub></td>
+    <td width="50%" align="center" valign="top"><a href="https://satejp10.github.io/claude-works/claude-design-works/ai-lab-headcount.html"><img src="assets/thumbnails/ai-lab-headcount.png" alt="AI Labs, by Headcount" width="420"></a><br><sub><b>AI Labs, by Headcount</b></sub></td>
   </tr>
 </table>
 <!-- GALLERY:END -->
@@ -33,12 +33,12 @@ _Thumbnails above are generated automatically from the works below — see [Addi
 
 | Work | Type | Date | Links |
 |------|------|------|-------|
-| **How India Got Online — Pixel Quest** — an interactive, gamified scrollytelling quest through the story of India's internet adoption. *(Completely overhauled rebuild.)* | Interactive (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/how-india-got-online-pixel-quest.html) · [Source](claude-design-works/how-india-got-online-pixel-quest.html) |
-| **India Online — How a Billion Got Connected** — the standalone data report: the charts and numbers behind India's path from a handful of users to a billion connected. | Data report (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/india-online-data-report.html) · [Source](claude-design-works/india-online-data-report.html) |
-| **Liquid Glass — Design Trials** — interactive glass-morphism design experiments (flick, drag, refract). | Design experiment (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/glass-morphism-design-trials.html) · [Source](claude-design-works/glass-morphism-design-trials.html) |
-| **AI Engines, What Runs Your AI?** — what's actually powering today's models: FP8 compute-per-watt vs. memory bandwidth across 2026 AI chips, normalized to comparable definitions. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/ai-accelerators-2026.html) · [Source](claude-design-works/ai-accelerators-2026.html) |
-| **Agentic Capabilities** — how far agents got by mid-2026: METR task-completion time horizons, the coding ceiling, and computer use crossing into the human band. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/agentic-capabilities-june-2026.html) · [Source](claude-design-works/agentic-capabilities-june-2026.html) |
-| **AI Labs, by Headcount** — estimated employee counts across ten frontier model builders: lean, five-figure-adjacent US teams vs. a few hundred people at China's open-weight leaders. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-infographics/claude-design-works/ai-lab-headcount.html) · [Source](claude-design-works/ai-lab-headcount.html) |
+| **How India Got Online — Pixel Quest** — an interactive, gamified scrollytelling quest through the story of India's internet adoption. *(Completely overhauled rebuild.)* | Interactive (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-works/claude-design-works/how-india-got-online-pixel-quest.html) · [Source](claude-design-works/how-india-got-online-pixel-quest.html) |
+| **India Online — How a Billion Got Connected** — the standalone data report: the charts and numbers behind India's path from a handful of users to a billion connected. | Data report (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-works/claude-design-works/india-online-data-report.html) · [Source](claude-design-works/india-online-data-report.html) |
+| **Liquid Glass — Design Trials** — interactive glass-morphism design experiments (flick, drag, refract). | Design experiment (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-works/claude-design-works/glass-morphism-design-trials.html) · [Source](claude-design-works/glass-morphism-design-trials.html) |
+| **AI Engines, What Runs Your AI?** — what's actually powering today's models: FP8 compute-per-watt vs. memory bandwidth across 2026 AI chips, normalized to comparable definitions. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-works/claude-design-works/ai-accelerators-2026.html) · [Source](claude-design-works/ai-accelerators-2026.html) |
+| **Agentic Capabilities** — how far agents got by mid-2026: METR task-completion time horizons, the coding ceiling, and computer use crossing into the human band. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-works/claude-design-works/agentic-capabilities-june-2026.html) · [Source](claude-design-works/agentic-capabilities-june-2026.html) |
+| **AI Labs, by Headcount** — estimated employee counts across ten frontier model builders: lean, five-figure-adjacent US teams vs. a few hundred people at China's open-weight leaders. | Infographic (HTML) | Jun 2026 | [View](https://satejp10.github.io/claude-works/claude-design-works/ai-lab-headcount.html) · [Source](claude-design-works/ai-lab-headcount.html) |
 
 ## Structure
 
